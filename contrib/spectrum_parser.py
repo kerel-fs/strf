@@ -24,8 +24,10 @@ def read_spectrum(path):
         with open(filename, 'rb') as f:
             next_header = f.read(256)
             while(next_header):
-                headers.append(parse_header(next_header))
-                zs.append(np.fromfile(f, dtype=np.float32, count=400))
+                header = parse_header(next_header)
+                headers.append(header)
+                zs.append(np.fromfile(f, dtype=np.float32, count=header['nchan']))
+
                 next_header = f.read(256)
     return np.transpose(np.vstack(zs)), headers
 
