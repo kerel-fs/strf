@@ -32,6 +32,14 @@ def read_spectrum(path):
     return np.transpose(np.vstack(zs)), headers
 
 
+def write_spectra_file(path, filename, zs, headers):
+    nsub = int(headers[0]['nsub'])
+    i = 0
+    write_spectrum_file(os.path.join(path, filename),
+                        np.transpose(zs[:,i * nsub:(i + 1) * nsub]),
+                        headers[i * nsub:(i + 1) * nsub])
+
+
 def write_spectra(path, zs, headers):
     nsub = int(headers[0]['nsub'])
 
